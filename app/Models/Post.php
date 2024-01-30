@@ -24,4 +24,9 @@ class Post extends Model
     {
         return $this->belongsTo(categorie::class, 'category_id');
     }
+
+    public function Commitment()
+    {
+        return $this->hasMany(Commitment::class, 'posts_id');
+    }
 }

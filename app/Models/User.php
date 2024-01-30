@@ -48,4 +48,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class, 'User_id');
     }
+    public function Commitment()
+    {
+        return $this->hasMany(Commitment::class, 'User_id');
+    }
 }

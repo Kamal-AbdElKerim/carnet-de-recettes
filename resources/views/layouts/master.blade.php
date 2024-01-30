@@ -8,6 +8,8 @@
     <title></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="shortcut icon" type="image/x-icon" href="{{URL::asset('assets/images/favicon.svg')}}" />
      <!-- Internal Data table css -->
      {{-- <link href="{{URL::asset('Dashboard/plugins/select2/css/select2.min.css')}}" rel="stylesheet"> --}}
@@ -60,7 +62,7 @@
                     <div class="nav-inner">
                         <!-- Start Navbar -->
                         <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand" href="index.html">
+                            <a class="navbar-brand" href="{{ route('index') }}">
                                 <img src={{URL::asset('assets/images/logo/white-logo.svg')}} alt="Logo">
                             </a>
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
@@ -70,24 +72,27 @@
                                 <span class="toggler-icon"></span>
                                 <span class="toggler-icon"></span>
                             </button>
-                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                                <ul id="nav" class="navbar-nav ms-auto">
+                            <div class="collapse navbar-collapse sub-menu-bar  " id="navbarSupportedContent">
+                                <ul id="nav" class="navbar-nav ms-auto ">
                                     <li class="nav-item">
-                                        <a href="index.html" aria-label="Toggle navigation">Home</a>
+                                        <a href="{{ route('index') }}" aria-label="Toggle navigation">Home</a>
                                     </li>
+                                    <li class="nav-item ">
+                                        @auth
+                                        <a href="{{ route('singout') }}"  class="btn">Log out</a>
+        
+                                        @endauth
+                                        @guest
+                                        <a href="{{ route('login') }}" class="btn">Log in</a>
+        
+                                        @endguest       
+                                     </li>
                               
                             
                                 </ul>
                             </div> <!-- navbar collapse -->
                             <div class="button add-list-button">
-                                @auth
-                                <a href="{{ route('singout') }}" class="btn">Log out</a>
-
-                                @endauth
-                                @guest
-                                <a href="{{ route('login') }}" class="btn">Log in</a>
-
-                                @endguest
+                             
                             </div>
                         </nav>
                         <!-- End Navbar -->
@@ -113,7 +118,7 @@
                         <!-- Single Widget -->
                         <div class="single-footer f-about">
                             <div class="logo">
-                                <a href="index.html">
+                                <a href="{{ route('index') }}">
                                     <img src="{{URL::asset('assets/images/logo/white-logo.svg')}}" alt="#">
                                 </a>
                             </div>
@@ -213,6 +218,8 @@
     <script src="{{URL::asset('assets/js/glightbox.min.js')}}"></script>
     <script src="{{URL::asset('assets/js/main.js')}}"></script>
     <script src="https://kit.fontawesome.com/e9ea9ee727.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 
 
     

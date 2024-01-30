@@ -144,27 +144,39 @@
                             <!-- Comments -->
                             <div class="post-comments">
                                 <h3 class="comment-title"><span>Post comments</span></h3>
-                                <ul class="comments-list">
-                                    <li>
-                                        <div class="comment-img">
-                                            <img src={{URL::asset('assets/images/blog/comment1.jpg')}} alt="img">
-                                        </div>
-                                        <div class="comment-desc">
-                                            <div class="desc-top">
-                                                <h6>Arista Williamson</h6>
-                                                <span class="date">19th May 2023</span>
-                                                <a href="javascript:void(0)" class="reply-link"><i
-                                                        class="lni lni-reply"></i>Reply</a>
+                                <ul class="comments-list" id="data_commit">
+
+
+                                </ul>
+                            
+                                    <div class="mt-3">
+                                        <form id="commentForm">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-box form-group">
+                                                        <textarea  id="commitText" name="commit" class="form-control form-control-custom"
+                                                            placeholder="Your Comments"></textarea>
+                                                    </div>
+                                                </div>
+                                                @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                    <ul>
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            @endif
+                                                <div class="col-12">
+                                                    <div class="button">
+                                                        <button type="submit" class="btn">Post Comment</button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <p>
-                                                Donec aliquam ex ut odio dictum, ut consequat leo interdum. Aenean nunc
-                                                ipsum, blandit eu enim sed, facilisis convallis orci. Etiam commodo
-                                                lectus
-                                                quis vulputate tincidunt. Mauris tristique velit eu magna maximus
-                                                condimentum.
-                                            </p>
-                                        </div>
-                                    </li>
+                                        </form>
+                                    </div>
+                                    <ul class="comments-list">
                                     <li class="children">
                                         <div class="comment-img">
                                             <img src={{URL::asset('assets/images/blog/comment1.jpg')}} alt="img">
@@ -182,67 +194,12 @@
                                             </p>
                                         </div>
                                     </li>
-                                    <li>
-                                        <div class="comment-img">
-                                            <img src={{URL::asset('assets/images/blog/comment1.jpg')}} alt="img">
-                                        </div>
-                                        <div class="comment-desc">
-                                            <div class="desc-top">
-                                                <h6>Alex Jemmi</h6>
-                                                <span class="date">12th May 2023</span>
-                                                <a href="javascript:void(0)" class="reply-link"><i
-                                                        class="lni lni-reply"></i>Reply</a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                                veniam.
-                                            </p>
-                                        </div>
-                                    </li>
+                               
                                 </ul>
                             </div>
                             <div class="comment-form">
                                 <h3 class="comment-reply-title">Leave a comment</h3>
-                                <form action="#" method="POST">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-12">
-                                            <div class="form-box form-group">
-                                                <input type="text" name="name" class="form-control form-control-custom"
-                                                    placeholder="Website URL" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-12">
-                                            <div class="form-box form-group">
-                                                <input type="text" name="email" class="form-control form-control-custom"
-                                                    placeholder="Your Name" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-12">
-                                            <div class="form-box form-group">
-                                                <input type="email" name="email"
-                                                    class="form-control form-control-custom" placeholder="Your Email" />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-12">
-                                            <div class="form-box form-group">
-                                                <input type="text" name="name" class="form-control form-control-custom"
-                                                    placeholder="Phone Number" />
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-box form-group">
-                                                <textarea name="#" class="form-control form-control-custom"
-                                                    placeholder="Your Comments"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="button">
-                                                <button type="submit" class="btn">Post Comment</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -312,5 +269,90 @@
 
     @endsection
 
-    @section('js')
+    @section('script')
+    <script>
+        var commentsRoute = "{{ route('comments.json') }}";
+    
+        function fetchComments() {
+            var xhr = new XMLHttpRequest();
+    
+            xhr.open('GET', commentsRoute, true);
+    
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    var response = JSON.parse(xhr.responseText);
+                    displayComments(response.comments);
+                    console.log('Request successful:', response);
+                } else {
+                    console.error('Request failed with status:', xhr.status, xhr.statusText);
+                    // Display a user-friendly error message if needed
+                }
+            };
+    
+            // Setup a callback for network errors
+            xhr.onerror = function () {
+                console.error('Network request failed');
+                // Display a user-friendly error message if needed
+            };
+    
+            // Send the request
+            xhr.send();
+        }
+    
+        function displayComments(comments) {
+           
+            var commentsList = document.getElementById('data_commit');
+            commentsList.innerHTML =''
+    console.log(comments)
+            comments.forEach(function (item) {
+                var listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <div class="comment-img">
+                        <img src={{URL::asset('assets/images/blog/comment1.jpg')}} alt="img">
+                    </div>
+                    <div class="comment-desc">
+                        <div class="desc-top">
+                            <h6>${item.user_name}</h6>
+                            <span class="date">${item.date}</span>
+                            <button onclick="children()" class="reply-link border-0 "><i class="lni lni-reply"> Reply</i></button>
+                        </div>
+                        <p>${item.commit}</p>
+                    </div>
+                `;
+    
+                commentsList.appendChild(listItem);
+            });
+        }
+    
+        fetchComments();
+    </script>
+
+    <!-- Add this script at the end of your Blade view file -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('commentForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var commitText = document.getElementById('commitText').value;
+
+            // Send an Ajax request
+            axios.post("{{ route('add_comment', ['postId' => $post->id]) }}", {
+                commit: commitText,
+            })
+            .then(function (response) {
+                // Handle success, you can update the UI or show a success message
+                console.log(response.data.message);
+                document.getElementById('commitText').value = '';
+
+                fetchComments();
+            })
+            .catch(function (error) {
+                // Handle errors, you can show an error message
+                console.error(error.response.data.message);
+            });
+        });
+    });
+</script>
+
+    
     @endsection

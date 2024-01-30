@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthContoller;
 use App\Http\Controllers\UserContoller;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommitmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,12 @@ Route::post('/post/updatePost/{id}', [PostController::class , "update"])->middle
 
 Route::get('/Single_post/{id}', [PostController::class , "show"])->name('Single_post');
 
+
 Route::post('/AjaxSearch', [PostController::class , "AjaxSearch"])->name('Ajax_Search');
+
+
+Route::post('/add-comment/{postId}', [CommitmentController::class , "addComment"])->name('add_comment');
+Route::get('/comments/json', [CommitmentController::class , "getCommentsJson"])->name('comments.json');
+// Route::get('/data.commit', [CommitmentController::class , "data_commit"])->name('data.commit');
+
+

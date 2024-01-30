@@ -44,6 +44,17 @@
 
         </script>
     @endif
+    @if (session()->has('commit_success'))
+        <script>
+            window.onload = function() {
+                notif({
+                    msg: "Add commit Success",
+		            type: "success",
+                });
+            }
+
+        </script>
+    @endif
     @if (session()->has('update_success'))
         <script>
             window.onload = function() {
