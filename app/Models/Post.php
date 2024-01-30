@@ -13,13 +13,15 @@ class Post extends Model
     protected $fillable = ['title', 'bio', 'image', 'category_id', 'user_id'];
 
 
-    public function categories()
-    {
-        return $this->belongsToMany(categorie::class);
-    }
+  
 
     public function user()
     {
         return $this->belongsTo(User::class, 'User_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsTo(categorie::class, 'category_id');
     }
 }

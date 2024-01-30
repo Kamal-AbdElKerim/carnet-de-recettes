@@ -18,7 +18,7 @@ class UserContoller extends Controller
     {
         $categories = Categorie::all();
        
-        $posts = Post::paginate(2);
+        $posts = Post::orderBy("id", "desc")->paginate(2);
 
 
         // foreach ($posts as  $value) {

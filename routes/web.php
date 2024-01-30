@@ -16,22 +16,28 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
 
 Route::get('/login', [AuthContoller::class , "index"])->name('login');
 Route::get('/Register', [AuthContoller::class , "Register"])->name('Register');
 
-Route::get('/index', [UserContoller::class , "index"])->name('index');
+Route::get('/', [UserContoller::class , "index"])->name('index');
 
 Route::get('/singout', [UserContoller::class , "singout"])->middleware('auth')->name('singout');
+
 
 Route::post('/store', [UserContoller::class , "store"])->name('store');
 
 Route::post('/store/login', [UserContoller::class , "store_login"])->name('store.login');
 
 
-Route::post('/store/post', [PostController::class , "store"])->name('add_post');
+Route::post('/store/post', [PostController::class , "store"])->middleware('auth')->name('add_post');
+Route::get('/post/delete_post/{id}', [PostController::class , "destroy"])->middleware('auth')->name('delete_post');
+Route::get('/post/update_post/{id}', [PostController::class , "edit"])->middleware('auth')->name('update_post');
+Route::post('/post/updatePost/{id}', [PostController::class , "update"])->middleware('auth')->name('updatePost');
+
+Route::get('/Single_post/{id}', [PostController::class , "show"])->name('Single_post');
 
 Route::post('/AjaxSearch', [PostController::class , "AjaxSearch"])->name('Ajax_Search');

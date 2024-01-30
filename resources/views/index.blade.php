@@ -30,9 +30,8 @@
     <section class="section blog-section blog-list">
  
         <div class="container">
+            <div class="row">
             <div class="col-lg-8 col-md-12 col-12">
-               
-           
             <div class="single-blog">
                 @auth
                 <form action="{{ route('add_post') }}" method="POST" enctype="multipart/form-data">
@@ -83,6 +82,25 @@
             
             </div>
         </div>
+
+                <aside class="col-lg-4 col-md-12 col-12">
+                    <div class="sidebar blog-grid-page">
+                       
+                       
+                        <!-- Start Single Widget -->
+                        <div class="single-widget banner">
+                            <a href="javascript:void(0)">
+                                <img src="assets/images/banner.jpg" alt="#" height="520px">
+                            </a>
+                        </div>
+                        <!-- End Single Widget -->
+                      
+                     
+                    </div>
+                </aside>
+       
+        </div>
+            <!-- End Single Widget -->
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-12">
                     
@@ -97,19 +115,19 @@
                             <div class="single-blog">
                                 <div class="blog-img">
                                     <a href="blog-single-sidebar.html">
-                                        <img src="{{ asset('storage/' . $item->image) }}" alt="#">
+                                        <img src="{{ asset('storage/' . $item->image) }}" alt="#" height="200px">
                                     </a>
                                 </div>
                                 <div class="blog-content">
                                     <h4>
-                                        <a href="blog-single-sidebar.html">{{ $item->title }}</a>
+                                        <a href="{{ route('Single_post',$item->id) }}">{{ $item->title }}</a>
                                         
                                     </h4>
-                                    <p>{!! Str::limit($item->bio, 200, '<a href="#">... [Read More]</a>') !!}</p>
+                                    <p>{!! Str::limit($item->bio, 200, '<a href="' . route('Single_post', $item->id) . '">... [Read More]</a>') !!}</p>
                                     <div class="autor">
                                         <a href="javascript:void(0)"><img src="assets/images/blog/comment2.jpg"
                                                 alt="#"></a>
-                                        <a href="javascript:void(0)" class="name">{{ $item->user->name}}</a>
+                                        <a href="" class="name">{{ $item->user->name}}</a>
                                         <ul class="meta-content">
                                             <li>
                                                 <a href="javascript:void(0)">{{ $item->created_at }}</a>

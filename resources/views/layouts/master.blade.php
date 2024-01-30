@@ -8,19 +8,20 @@
     <title></title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.svg" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{URL::asset('assets/images/favicon.svg')}}" />
      <!-- Internal Data table css -->
      {{-- <link href="{{URL::asset('Dashboard/plugins/select2/css/select2.min.css')}}" rel="stylesheet"> --}}
      <!--Internal   Notify -->
      <link href="{{URL::asset('Dashboard/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
 
     <!-- ========================= CSS here ========================= -->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
-    {{-- <link rel="stylesheet" href="assets/css/animate.css" /> --}}
-    {{-- <link rel="stylesheet" href="assets/css/tiny-slider.css" /> --}}
-    <link rel="stylesheet" href="assets/css/glightbox.min.css" />
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="{{URL::asset('assets/css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{URL::asset('assets/css/LineIcons.2.0.css')}}" />
+    <link rel="stylesheet" href="{{URL::asset('assets/css/glightbox.min.css')}}" />
+    <link rel="stylesheet" href="{{URL::asset('assets/css/bootstrap.min.css')}}" />
+    <link rel="stylesheet" href="{{URL::asset('assets/css/main.css')}}" />
+
+  
        
 <style>
 
@@ -60,7 +61,7 @@
                         <!-- Start Navbar -->
                         <nav class="navbar navbar-expand-lg">
                             <a class="navbar-brand" href="index.html">
-                                <img src="assets/images/logo/white-logo.svg" alt="Logo">
+                                <img src={{URL::asset('assets/images/logo/white-logo.svg')}} alt="Logo">
                             </a>
                             <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -113,7 +114,7 @@
                         <div class="single-footer f-about">
                             <div class="logo">
                                 <a href="index.html">
-                                    <img src="assets/images/logo/white-logo.svg" alt="#">
+                                    <img src="{{URL::asset('assets/images/logo/white-logo.svg')}}" alt="#">
                                 </a>
                             </div>
                             <p>Making the world a better place through constructing elegant hierarchies.</p>
@@ -208,13 +209,13 @@
     <!-- ========================= JS here ========================= -->
     <script src="{{URL::asset('assets/js/jquery-3.7.1.min.js')}}"></script>
 
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="{{URL::asset('assets/js/bootstrap.min.js')}}"></script>
+    <script src="{{URL::asset('assets/js/glightbox.min.js')}}"></script>
+    <script src="{{URL::asset('assets/js/main.js')}}"></script>
+    <script src="https://kit.fontawesome.com/e9ea9ee727.js" crossorigin="anonymous"></script>
 
-    {{-- <script src="assets/js/wow.min.js"></script> --}}
-    {{-- <script src="assets/js/tiny-slider.js"></script> --}}
-    <script src="assets/js/glightbox.min.js"></script>
+
     
-    <script src="assets/js/main.js"></script>
           <!--Internal  Notify js -->
           <script src="{{URL::asset('Dashboard/plugins/jquery/jquery.min.js')}}"></script>
           <!-- Bootstrap Bundle js -->

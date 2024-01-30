@@ -32,109 +32,76 @@
                         <div class="post-details">
                             <div class="main-content-head">
                                 <div class="meta-information">
-                                    <h2 class="post-title">
-                                        <a href="blog-single.html">Web design refers to the design of websites that are
-                                            displayed on the internet.</a>
-                                    </h2>
+                                  
                                     <!-- End Meta Info -->
+                                    <div class=" d-flex  justify-content-between ">
                                     <ul class="meta-info">
                                         <li>
-                                            <a href="javascript:void(0)"><img src="assets/images/blog/comment1.jpg"
-                                                    alt="#"> Roel Aufderhar</a>
+                                            <a href="javascript:void(0)"><img src="{{ asset('storage/' . $post->image) }}"
+                                                    alt="#">{{ $post->user->name}}</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0)"><i class="lni lni-calendar"></i> 10 Feb 2023
+                                            <a href="javascript:void(0)"><i class="lni lni-calendar"></i> {{ $post->created_at }}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0)"><i class="lni lni-tag"></i> Marketing</a>
+                                            <a href="javascript:void(0)"><i class="lni lni-tag"></i> {{ $post->categories->title }}</a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0)"><i class="lni lni-timer"></i> 5 min read</a>
+                                            <a href="javascript:void(0)"><i class="lni lni-timer"></i>{{ $post->created_at->diffForHumans() }} </a>
                                         </li>
                                     </ul>
+                                    <div>
+                            
+                                        @auth
+                                            @if ($post->User_id === Auth::user()->id)
+                                                <a class="btn btn-outline-primary" href="{{ route('update_post', $post->id) }}" role="button">
+                                                    <i class="fa-regular fa-pen-to-square"></i>
+                                                </a>
+                                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal{{ $post->id }}">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            @endif
+                                        @endauth
+                                    </div>
+                                </div>
+                                <!-- Button trigger modal -->
+
+  
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal{{ $post->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Deletion</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure to delete : {{ $post->title }}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <a class="btn btn-danger" href="{{ route('delete_post',$post->id) }}">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     <!-- End Meta Info -->
+                                    <h2 class="post-title mt-5">
+                                        <a href="blog-single.html">{{ $post->title }}</a>
+                                    </h2>
                                 </div>
                                 <div class="post-thumbnils">
-                                    <img src="assets/images/blog/blog-single.jpg" alt="#">
+                                    <img src="{{ asset('storage/' . $post->image) }}" alt="#">
                                 </div>
                                 <div class="detail-inner">
-                                    <p>We denounce with righteous indige nation and dislike men who are so beguiled and
-                                        demo
-                                        realized by the charms of pleasure of the moment, so blinded by desire, that
-                                        they
-                                        cannot
-                                        foresee the pain and trouble that are bound to ensue; and equal blame belongs to
-                                        those
-                                        who fail in their duty through weakness of will, which is the same as saying
-                                        through
-                                        shrinking from toil and pain. These cases are perfectly simple and easy to
-                                        distinguish.
-                                        In a free hour, when our power of choice is untrammelled and when nothing
-                                        prevents
-                                        our
-                                        being able to do what we like best, every pleasure is to be welcomed and every
-                                        pain
-                                        avoided.</p>
+                                    <p>{{  $post->bio }}</p>
                                     <!-- post image -->
-                                    <ul class="list">
-                                        <li><i class="lni lni-checkmark-circle"></i> For those of you who are serious
-                                            about having
-                                            more.</li>
-                                        <li><i class="lni lni-checkmark-circle"></i> There are a million distractions in
-                                            every
-                                            facet of our lives.</li>
-                                        <li><i class="lni lni-checkmark-circle"></i> The sad thing is the majority of
-                                            people have
-                                            no clue about what they truly want.</li>
-                                        <li><i class="lni lni-checkmark-circle"></i> Once you have a clear understanding
-                                            of what you
-                                            want</li>
-                                        <li><i class="lni lni-checkmark-circle"></i> Focus is having the unwavering
-                                            attention to
-                                            complete what you set out to do.</li>
-                                    </ul>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud
-                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                        irure
-                                        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                        pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia. </p>
-                                    <!-- post quote -->
-                                    <blockquote>
+
+                                  
                                         <div class="icon">
                                             <i class="lni lni-quotation"></i>
                                         </div>
-                                        <h4>"Don't demand that things happen as you wish, but wish that they happen as
-                                            they
-                                            do
-                                            happen, and you will go on well."</h4>
-                                        <span>- Epictetus, The Enchiridion</span>
-                                    </blockquote>
-                                    <h3>Setting the mood with incense</h3>
-                                    <p>Remove aversion, then, from all things that are not in our control, and transfer
-                                        it
-                                        to
-                                        things contrary to the nature of what is in our control. But, for the present,
-                                        totally
-                                        suppress desire: for, if you desire any of the things which are not in your own
-                                        control,
-                                        you must necessarily be disappointed; and of those which are, and which it would
-                                        be
-                                        laudable to desire, nothing is yet in your possession. Use only the appropriate
-                                        actions
-                                        of pursuit and avoidance; and even these lightly, and with gentleness and
-                                        reservation.
-                                    </p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud
-                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                        irure
-                                        dolor in reprehenderit. </p>
-                                    <!--post tags -->
                                     <!-- Post Social Share -->
                                     <div class="post-social-media">
                                         <h5 class="share-title">Social Share</h5>
@@ -180,7 +147,7 @@
                                 <ul class="comments-list">
                                     <li>
                                         <div class="comment-img">
-                                            <img src="assets/images/blog/comment1.jpg" alt="img">
+                                            <img src={{URL::asset('assets/images/blog/comment1.jpg')}} alt="img">
                                         </div>
                                         <div class="comment-desc">
                                             <div class="desc-top">
@@ -200,7 +167,7 @@
                                     </li>
                                     <li class="children">
                                         <div class="comment-img">
-                                            <img src="assets/images/blog/comment2.jpg" alt="img">
+                                            <img src={{URL::asset('assets/images/blog/comment1.jpg')}} alt="img">
                                         </div>
                                         <div class="comment-desc">
                                             <div class="desc-top">
@@ -217,7 +184,7 @@
                                     </li>
                                     <li>
                                         <div class="comment-img">
-                                            <img src="assets/images/blog/comment3.jpg" alt="img">
+                                            <img src={{URL::asset('assets/images/blog/comment1.jpg')}} alt="img">
                                         </div>
                                         <div class="comment-desc">
                                             <div class="desc-top">
@@ -282,15 +249,7 @@
                 </div>
                 <aside class="col-lg-4 col-md-12 col-12">
                     <div class="sidebar blog-grid-page">
-                        <!-- Start Single Widget -->
-                        <div class="widget search-widget">
-                            <h5 class="widget-title">Search This Site</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Search Here...">
-                                <button type="submit"><i class="lni lni-search-alt"></i></button>
-                            </form>
-                        </div>
-                        <!-- End Single Widget -->
+                     
                         <!-- Start Single Widget -->
                         <div class="widget popular-feeds">
                             <h5 class="widget-title">Popular Feeds</h5>
@@ -298,7 +257,7 @@
                                 <div class="single-popular-feed">
                                     <div class="feed-desc">
                                         <a class="feed-img" href="blog-single-sidebar.html">
-                                            <img src="assets/images/blog/blog-sidebar-1.jpg" alt="#">
+                                            <img src={{URL::asset('assets/images/blog/comment1.jpg')}} alt="img">
                                         </a>
                                         <a href="javascript:void(0)" class="cetagory">Creative</a>
                                         <h6 class="post-title"><a href="blog-single-sidebar.html">Bringing Great Design
@@ -309,7 +268,7 @@
                                 <div class="single-popular-feed">
                                     <div class="feed-desc">
                                         <a class="feed-img" href="blog-single-sidebar.html">
-                                            <img src="assets/images/blog/blog-sidebar-2.jpg" alt="#">
+                                            <img src={{URL::asset('assets/images/blog/comment1.jpg')}} alt="img">
                                         </a>
                                         <a href="javascript:void(0)" class="cetagory">Jobs</a>
                                         <h6 class="post-title"><a href="blog-single-sidebar.html">Live Life Smart And
@@ -320,7 +279,7 @@
                                 <div class="single-popular-feed">
                                     <div class="feed-desc">
                                         <a class="feed-img" href="blog-single-sidebar.html">
-                                            <img src="assets/images/blog/blog-sidebar-3.jpg" alt="#">
+                                            <img src={{URL::asset('assets/images/blog/comment1.jpg')}} alt="img">
                                         </a>
                                         <a href="javascript:void(0)" class="cetagory">Marketing</a>
                                         <h6 class="post-title"><a href="blog-single-sidebar.html">We’re currently
@@ -331,46 +290,8 @@
                             </div>
                         </div>
                         <!-- End Single Widget -->
-                        <!-- Start Single Widget -->
-                        <div class="widget categories-widget">
-                            <h5 class="widget-title">Categories</h5>
-                            <ul class="custom">
-                                <li>
-                                    <a href="javascript:void(0)">Web Design</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Branding</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Graphic Design</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Marketing</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Wireframing</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- End Single Widget -->
-                        <!-- Start Single Widget -->
-                        <div class="widget popular-tag-widget">
-                            <h5 class="widget-title">Popular Tags</h5>
-                            <div class="tags">
-                                <a href="javascript:void(0)">Popular</a>
-                                <a href="javascript:void(0)">Design</a>
-                                <a href="javascript:void(0)">UX</a>
-                                <a href="javascript:void(0)">Usability</a>
-                                <a href="javascript:void(0)">Interview</a>
-                                <a href="javascript:void(0)">Jobs</a>
-                                <a href="javascript:void(0)">Develop</a>
-                                <a href="javascript:void(0)">Business</a>
-                                <a href="javascript:void(0)">Tech</a>
-                                <a href="javascript:void(0)">Consult</a>
-                                <a href="javascript:void(0)">Employee</a>
-                            </div>
-                        </div>
-                        <!-- End Single Widget -->
+                     
+                 
                         <!-- Start Single Widget -->
                         <div class="widget help-call">
                             <h5 class="widget-title">Need Help?</h5>
@@ -392,5 +313,4 @@
     @endsection
 
     @section('js')
-
     @endsection

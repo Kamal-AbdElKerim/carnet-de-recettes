@@ -15,9 +15,8 @@ class categorie extends Model
         'password',
     ];
 
-
-    public function category()
+    public function posts()
     {
-        return $this->belongsTo(categorie::class);
+        return $this->hasMany(Post::class, 'category_id');
     }
 }

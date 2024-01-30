@@ -5,16 +5,16 @@
     <!-- Start Single Blog -->
     <div class="single-blog">
         <div class="blog-img">
-            <a href="blog-single-sidebar.html">
-                <img src="{{ asset('storage/' . $item->image) }}" alt="#">
+            <a href="{{ route('Single_post',$item->id) }}">
+                <img src="{{ asset('storage/' . $item->image) }}" alt="#" height="300px">
             </a>
         </div>
         <div class="blog-content">
             <h4>
-                <a href="blog-single-sidebar.html">{{ $item->title }}</a>
+                <a href="{{ route('Single_post',$item->id) }}">{{ $item->title }}</a>
                 
             </h4>
-            <p>{!! Str::limit($item->bio, 200, '<a href="#">... [Read More]</a>') !!}</p>
+            <p>{!! Str::limit($item->bio, 200, '<a href="' . route('Single_post', $item->id) . '">... [Read More]</a>') !!}</p>
             <div class="autor">
                 <a href="javascript:void(0)"><img src="assets/images/blog/comment2.jpg"
                         alt="#"></a>

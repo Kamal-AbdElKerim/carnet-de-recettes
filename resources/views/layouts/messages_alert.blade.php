@@ -14,7 +14,7 @@
 
                 window.onload = function() {
                 notif({
-                    msg: "Register field",
+                    msg: "Something Wrong",
 		            type: "error",
                 });
             }
@@ -26,6 +26,29 @@
             window.onload = function() {
                 notif({
                     msg: "Register Success",
+		            type: "success",
+                });
+            }
+
+        </script>
+    @endif
+
+    @if (session()->has('delete_post'))
+        <script>
+            window.onload = function() {
+                notif({
+                    msg: "delete Success",
+		            type: "success",
+                });
+            }
+
+        </script>
+    @endif
+    @if (session()->has('update_success'))
+        <script>
+            window.onload = function() {
+                notif({
+                    msg: "update Success",
 		            type: "success",
                 });
             }
