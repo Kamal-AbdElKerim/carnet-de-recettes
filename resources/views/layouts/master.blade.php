@@ -50,11 +50,13 @@
 }
  
 .three {
-  color: rgb(251, 255, 120);
+ 
+  color: rgb(149, 228, 12);
+
 }
  
 .four {
-  color: rgb(255, 255, 0);
+    color: rgb(105, 187, 12);
 }
  
 .five {

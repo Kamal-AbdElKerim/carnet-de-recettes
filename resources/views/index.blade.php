@@ -130,7 +130,7 @@
                                                 <span style="font-size: 3vh" onclick="gfg(3)" class="">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(4)" class="">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
-                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                                <span><h6>({{ $item->Commitment->count() }} sold)</h6></span>
                                             </div>
                                         </a>
                                         @endif
@@ -142,7 +142,7 @@
                                                 <span style="font-size: 3vh" onclick="gfg(3)" class="">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(4)" class="">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
-                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                                <span><h6>({{ $item->Commitment->count() }} sold)</h6></span>
                                             </div>
                                         </a>
                                         @endif
@@ -154,7 +154,7 @@
                                                 <span style="font-size: 3vh" onclick="gfg(3)" class="three">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(4)" class="">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
-                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                                <span><h6>({{ $item->Commitment->count() }} sold)</h6></span>
                                             </div>
                                         </a>
                                         @endif
@@ -166,7 +166,7 @@
                                                 <span style="font-size: 3vh" onclick="gfg(3)" class="four">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(4)" class="four">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
-                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                                <span><h6>({{ $item->Commitment->count() }} sold)</h6></span>
                                             </div>
                                         </a>
                                         @endif
@@ -178,7 +178,7 @@
                                                 <span style="font-size: 3vh" onclick="gfg(3)" class="five">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(4)" class="five">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(5)" class="five">★</span>
-                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                                <span><h6>({{ $item->Commitment->count() }} sold)</h6></span>
                                             </div>
                                         </a>
                                         @endif
@@ -190,7 +190,7 @@
                                                 <span style="font-size: 3vh" onclick="gfg(3)" class="">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(4)" class="">★</span>
                                                 <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
-                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                                <span><h6>({{ $item->Commitment->count() }} sold)</h6></span>
                                             </div>
                                         </a>
                                     @endif        
@@ -266,7 +266,7 @@
                     <div class="sidebar blog-grid-page">
                         <!-- Start Single Widget -->
                         <div class="widget search-widget">
-                            <h5 class="widget-title">Search This Site</h5>
+                            <h6 class="widget-title">Search This Site</h6>
                             <form action="#">
                                 <input type="text" placeholder="Search Here..." id="SearchByTiltle">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
@@ -276,7 +276,7 @@
                        
                         <!-- Start Single Widget -->
                         <div class="widget categories-widget">
-                            <h5 class="widget-title">Categories</h5>
+                            <h6 class="widget-title">Categories</h6>
                             <ul class="custom">
                                 <li>
                                     <a href="javascript:void(0)">Web Design</a>

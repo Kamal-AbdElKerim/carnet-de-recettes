@@ -412,12 +412,10 @@ function remove() {
                     </div>
                     <div class="comment-desc">
                         <div class="desc-top">
-                            <h6>${item.user_name}</h6>
+                            <h6>${item.user_name}</h6><span class="date">${item.date}</span>
                             ${starRatingHtml}
-
                             
-                            <span class="date">${item.date}</span>
-                          
+
                             ${item.User_id === {{ Auth::check() ? Auth::user()->id : 'false' }} ? `
                             <button onclick="updateComment(${item.id})" class="reply-link border-0 mx-4"><i class="fa-regular fa-pen-to-square"></i></button>
                             <button onclick="deleteComment(${item.id})" class="reply-link border-0"><i class="fa-solid fa-trash"></i></button>

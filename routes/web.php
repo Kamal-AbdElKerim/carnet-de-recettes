@@ -45,9 +45,9 @@ Route::get('/Single_post/{id}', [PostController::class , "show"])->name('Single_
 Route::post('/AjaxSearch', [PostController::class , "AjaxSearch"])->name('Ajax_Search');
 
 
-Route::post('/add-comment/{postId}', [CommitmentController::class , "addComment"])->name('add_comment');
-Route::delete('/delete-comment/{commentId}', [CommitmentController::class , "delete"])->name('delete.comment');
-Route::put('/update-comment/{commentId}', [CommitmentController::class , "updateComment"])->name('update.comment');
+Route::post('/add-comment/{postId}', [CommitmentController::class , "addComment"])->middleware('auth')->name('add_comment');
+Route::delete('/delete-comment/{commentId}', [CommitmentController::class , "delete"])->middleware('auth')->name('delete.comment');
+Route::put('/update-comment/{commentId}', [CommitmentController::class , "updateComment"])->middleware('auth')->name('update.comment');
 
 
 Route::get('/comments/json/{postId}', [CommitmentController::class , "getCommentsJson"])->name('comments.json');
