@@ -71,13 +71,22 @@ class PostController extends Controller
     }
 
     public function AjaxSearch(Request $request)
-    {
-        if ($request->ajax()) {
-           $SearchByTiltle = $request->SearchByTiltle;
-           $posts = Post::where("title","like","%{$SearchByTiltle}%")->orderby("id","desc")->paginate(2);
-           return view('SearchAjax',compact('posts'));
+{
+    if ($request->ajax()) {
+        $searchByTitle = $request->SearchByTiltle;
+
+        $category = Categorie::where("title", "like", "%{$searchByTitle}%")->first();
+
+        if (empty($category)) {
+            $posts = Post::where("title", "like", "%{$searchByTitle}%")->orderBy("id", "desc")->paginate(2);
+        } else {
+            $posts = Post::where("category_id", "=", $category->id)->orderBy("id", "desc")->paginate(2);
         }
+
+        return view('SearchAjax', compact('posts'));
     }
+}
+
 
     /**
      * Show the form for editing the specified resource.

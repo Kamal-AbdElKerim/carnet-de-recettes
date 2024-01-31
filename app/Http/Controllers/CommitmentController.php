@@ -90,11 +90,13 @@ class CommitmentController extends Controller
        
         $validatedData = $request->validate([
             'commit' => 'required',  
+            'num' => 'required',  
         ]);
     
        
         $commitment = new Commitment();
         $commitment->commit = $validatedData['commit']; 
+        $commitment->start = $validatedData['num']; 
 
         $commitment->User_id = Auth::id();
         $commitment->posts_id = $id; 

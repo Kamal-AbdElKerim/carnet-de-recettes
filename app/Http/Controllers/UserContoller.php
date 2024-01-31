@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\categorie;
+use App\Models\Commitment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,12 +21,10 @@ class UserContoller extends Controller
        
         $posts = Post::orderBy("id", "desc")->paginate(2);
 
+        $Commitment = Commitment::all();
 
-        // foreach ($posts as  $value) {
-        //       dd($value->image) ;
-        // }
-      
-        // dd($categories);
+        $Post = Post::withCount('Commitment')->get();
+
         return view('index',compact('categories','posts')) ;
 
     }

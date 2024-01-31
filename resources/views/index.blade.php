@@ -109,7 +109,7 @@
                         <div id="ajax_posts" class="row">
                         @foreach ($posts as $item)
                             
-                     
+                        
                         <div class="col-lg-6 col-md-6 col-12">
                             <!-- Start Single Blog -->
                             <div class="single-blog">
@@ -121,6 +121,79 @@
                                 <div class="blog-content">
                                     <h4>
                                         <a href="{{ route('Single_post',$item->id) }}">{{ $item->title }}</a>
+                                        @if ($item->Commitment->count() != 0)
+                                        @if (round($item->Commitment->sum('start') / $item->Commitment->count()) == 1)
+                                        <br><a href="{{ route('Single_post',$item->id) }}">
+                                            <div class="star-rating">
+                                                <span style="font-size: 3vh" onclick="gfg(1)" class="one">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(2)" class="">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(3)" class="">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(4)" class="">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
+                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                            </div>
+                                        </a>
+                                        @endif
+                                        @if (round($item->Commitment->sum('start') / $item->Commitment->count()) == 2)
+                                        <br><a href="{{ route('Single_post',$item->id) }}">
+                                            <div class="star-rating">
+                                                <span style="font-size: 3vh" onclick="gfg(1)" class="two">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(2)" class="two">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(3)" class="">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(4)" class="">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
+                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                            </div>
+                                        </a>
+                                        @endif
+                                        @if (round($item->Commitment->sum('start') / $item->Commitment->count()) == 3)
+                                        <br><a href="{{ route('Single_post',$item->id) }}">
+                                            <div class="star-rating">
+                                                <span style="font-size: 3vh" onclick="gfg(1)" class="three">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(2)" class="three">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(3)" class="three">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(4)" class="">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
+                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                            </div>
+                                        </a>
+                                        @endif
+                                        @if (round($item->Commitment->sum('start') / $item->Commitment->count()) == 4)
+                                        <br><a href="{{ route('Single_post',$item->id) }}">
+                                            <div class="star-rating">
+                                                <span style="font-size: 3vh" onclick="gfg(1)" class="four">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(2)" class="four">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(3)" class="four">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(4)" class="four">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
+                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                            </div>
+                                        </a>
+                                        @endif
+                                        @if (round($item->Commitment->sum('start') / $item->Commitment->count()) == 5)
+                                        <br><a href="{{ route('Single_post',$item->id) }}">
+                                            <div class="star-rating">
+                                                <span style="font-size: 3vh" onclick="gfg(1)" class="five">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(2)" class="five">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(3)" class="five">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(4)" class="five">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(5)" class="five">★</span>
+                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                            </div>
+                                        </a>
+                                        @endif
+                                        @else 
+                                        <br><a href="{{ route('Single_post',$item->id) }}">
+                                            <div class="star-rating">
+                                                <span style="font-size: 3vh" onclick="gfg(1)" class="">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(2)" class="">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(3)" class="">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(4)" class="">★</span>
+                                                <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
+                                                <span><h5>({{ $item->Commitment->count() }} sold)</h6></span>
+                                            </div>
+                                        </a>
+                                    @endif        
                                         
                                     </h4>
                                     <p>{!! Str::limit($item->bio, 200, '<a href="' . route('Single_post', $item->id) . '">... [Read More]</a>') !!}</p>
@@ -209,7 +282,7 @@
                                     <a href="javascript:void(0)">Web Design</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">Branding</a>
+                                    <a  href="javascript:void(0)">Branding</a>
                                 </li>
                                 <li>
                                     <a href="javascript:void(0)">Graphic Design</a>

@@ -161,6 +161,27 @@
                                                     <div id="error">
 
                                                     </div>
+                                                    <div class="" id="f_star">
+                                                        <span onclick="gfg(1)"
+                                                              class="star">★
+                                                        </span>
+                                                        <span onclick="gfg(2)"
+                                                              class="star">★
+                                                        </span>
+                                                        <span onclick="gfg(3)"
+                                                              class="star">★
+                                                        </span>
+                                                        <span onclick="gfg(4)"
+                                                              class="star">★
+                                                        </span>
+                                                        <span onclick="gfg(5)"
+                                                              class="star">★
+                                                        </span>
+                                                        <h3 id="output">
+                                                            <input type="text" id="num"  value="" style="display: none">
+                                                          </h3>
+                                                    </div>
+
                                                 </form>
                                             </div>
                                             </div>
@@ -252,7 +273,40 @@
     @endsection
 
     @section('script')
+
     <script>
+        
+// script.js
+ 
+// To access the stars
+let stars = 
+    document.getElementsByClassName("star");
+let output = 
+    document.getElementById("output");
+ 
+// Funtion to update rating
+function gfg(n) {
+    remove();
+    for (let i = 0; i < n; i++) {
+        if (n == 1) cls = "one";
+        else if (n == 2) cls = "two";
+        else if (n == 3) cls = "three";
+        else if (n == 4) cls = "four";
+        else if (n == 5) cls = "five";
+        stars[i].className = "star " + cls;
+    }
+    output.innerHTML = `<input type="text" id="num"  value="${n}" style="display: none">`;
+    console.log(n)
+}
+ 
+// To remove the pre-applied styling
+function remove() {
+    let i = 0;
+    while (i < 5) {
+        stars[i].className = "star";
+        i++;
+    }
+}
         var commentsRoute = "{{ route('comments.json', ['postId' => $post->id]) }}";
     
         function fetchComments() {
@@ -285,8 +339,72 @@
            
             var commentsList = document.getElementById('data_commit');
             commentsList.innerHTML =''
+            
+
     console.log(comments)
             comments.forEach(function (item) {
+                if (item.start == 1) {
+                    starRatingHtml = `
+                        <div class="star-rating" >
+                            <span  style="font-size: 3vh" onclick="gfg(1)" class=" one">★</span>
+                            <span  style="font-size: 3vh" onclick="gfg(2)" class="">★</span>
+                            <span  style="font-size: 3vh" onclick="gfg(3)" class="">★</span>
+                            <span  style="font-size: 3vh" onclick="gfg(4)" class="">★</span>
+                            <span  style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
+                            <h3 id="output"></h3>
+                        </div>
+                    `;
+                }else if (item.start == 2){
+                    starRatingHtml = `
+                        <div class="star-rating" >
+                            <span style="font-size: 3vh" onclick="gfg(1)" class=" two">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(2)" class=" two">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(3)" class="">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(4)" class="">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
+                            <h3 id="output"></h3>
+                        </div>
+                    `;
+                }
+                else if (item.start == 3){
+                    starRatingHtml = `
+                        <div class="star-rating" >
+                            <span style="font-size: 3vh" onclick="gfg(1)" class=" three">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(2)" class=" three">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(3)" class=" three">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(4)" class="">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
+                            <h3 id="output"></h3>
+                        </div>
+                    `;
+                }
+                else if (item.start == 4){
+                    starRatingHtml = `
+                    <div class="star-rating" >
+                            <span style="font-size: 3vh" onclick="gfg(1)" class="four">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(2)" class="four">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(3)" class="four">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(4)" class="four">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(5)" class="">★</span>
+                            <h3 id="output"></h3>
+                        </div>
+                    `;
+                }
+                else if (item.start == 5){
+                    starRatingHtml = `
+                        <div class="star-rating">
+                            <span style="font-size: 3vh" onclick="gfg(1)" class="five">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(2)" class="five">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(3)" class="five">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(4)" class="five">★</span>
+                            <span style="font-size: 3vh" onclick="gfg(5)" class="five">★</span>
+                            <h3 id="output"></h3>
+                        </div>
+                    `;
+                }else{
+                    starRatingHtml = ''
+                }
+                
                 var listItem = document.createElement('li');
                 listItem.innerHTML = `
                     <div class="comment-img">
@@ -295,6 +413,9 @@
                     <div class="comment-desc">
                         <div class="desc-top">
                             <h6>${item.user_name}</h6>
+                            ${starRatingHtml}
+
+                            
                             <span class="date">${item.date}</span>
                           
                             ${item.User_id === {{ Auth::check() ? Auth::user()->id : 'false' }} ? `
@@ -324,21 +445,31 @@
             event.preventDefault();
 
             var commitText = document.getElementById('commitText').value;
+            var num = document.getElementById('num').value;
+            var starElements = document.querySelectorAll('#f_star .star');
             var error = document.getElementById('error');
 
-            if (commitText !== '') {
+            if (commitText !== '' && num !== '') {
                 
            
 
             // Send an Ajax request
             axios.post("{{ route('add_comment', ['postId' => $post->id]) }}", {
                 commit: commitText,
+                num: num,
                
             })
             .then(function (response) {
                 console.log(response.data.message);
                 document.getElementById('commitText').value = '';
                 error.innerHTML = '';
+                starElements.forEach(function(span) {
+                    // Remove all existing classes
+                    span.className = '';
+
+                    // Add the new class (e.g., 'newClass')
+                    span.classList.add('star');
+                });
                 // document.getElementById('commentForm').scrollIntoView({ behavior: 'smooth' });
                 var targetPosition = document.body.scrollHeight - 900;
         window.scrollTo(0, targetPosition);
