@@ -46,7 +46,11 @@ Route::post('/AjaxSearch', [PostController::class , "AjaxSearch"])->name('Ajax_S
 
 
 Route::post('/add-comment/{postId}', [CommitmentController::class , "addComment"])->name('add_comment');
-Route::get('/comments/json', [CommitmentController::class , "getCommentsJson"])->name('comments.json');
+Route::delete('/delete-comment/{commentId}', [CommitmentController::class , "delete"])->name('delete.comment');
+Route::put('/update-comment/{commentId}', [CommitmentController::class , "updateComment"])->name('update.comment');
+
+
+Route::get('/comments/json/{postId}', [CommitmentController::class , "getCommentsJson"])->name('comments.json');
 // Route::get('/data.commit', [CommitmentController::class , "data_commit"])->name('data.commit');
 
 

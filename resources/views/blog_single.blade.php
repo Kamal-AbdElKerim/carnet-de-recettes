@@ -148,59 +148,37 @@
 
 
                                 </ul>
-                            
+                                    @auth
+                                        
+                                 
                                     <div class="mt-3">
-                                        <form id="commentForm">
-                                            @csrf
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="form-box form-group">
-                                                        <textarea  id="commitText" name="commit" class="form-control form-control-custom"
-                                                            placeholder="Your Comments"></textarea>
+                                        <div class="sidebar ">
+                                            <!-- Start Single Widget -->
+                                            <div class="widget search-widget">
+                                                <form id="commentForm">
+                                                    <input type="text" name="commit" placeholder="Your Comments" id="commitText">
+                                                    <button type="submit"><img src={{URL::asset('assets/images/send.png')}} alt=""></button>
+                                                    <div id="error">
+
                                                     </div>
-                                                </div>
-                                                @if ($errors->any())
-                                                <div class="alert alert-danger">
-                                                    <ul>
-                                                        @foreach ($errors->all() as $error)
-                                                            <li>{{ $error }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            @endif
-                                                <div class="col-12">
-                                                    <div class="button">
-                                                        <button type="submit" class="btn">Post Comment</button>
-                                                    </div>
-                                                </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                            </div>
+                                            <!-- End Single Widget -->
+                                         </div>
+                                    @endauth
+                                    @guest
+                                    <div class="mt-3">
+                     <h3 class="comment-reply-title">Leave a comment</h3>
+                    <h3 class=" text-center px-5 ">you must to login</h3>
+                    <div class="d-flex justify-content-center   mb-5">
+                    <a class="btn btn-primary p-1" href="{{ route('login') }}">Log in</a>
                                     </div>
-                                    <ul class="comments-list">
-                                    <li class="children">
-                                        <div class="comment-img">
-                                            <img src={{URL::asset('assets/images/blog/comment1.jpg')}} alt="img">
-                                        </div>
-                                        <div class="comment-desc">
-                                            <div class="desc-top">
-                                                <h6>Rosalina Kelian</h6>
-                                                <span class="date">15th May 2023</span>
-                                                <a href="javascript:void(0)" class="reply-link"><i
-                                                        class="lni lni-reply"></i>Reply</a>
-                                            </div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                tempor incididunt ut labore et dolore magna aliqua. Ut enim.
-                                            </p>
-                                        </div>
-                                    </li>
-                               
-                                </ul>
+                                    </div>
+                               @endguest
+                                  
                             </div>
-                            <div class="comment-form">
-                                <h3 class="comment-reply-title">Leave a comment</h3>
-                                
-                            </div>
+                          
                         </div>
                     </div>
                 </div>
@@ -247,6 +225,10 @@
                             </div>
                         </div>
                         <!-- End Single Widget -->
+                      <!-- Default dropstart button -->
+                  
+
+                    
                      
                  
                         <!-- Start Single Widget -->
@@ -271,7 +253,7 @@
 
     @section('script')
     <script>
-        var commentsRoute = "{{ route('comments.json') }}";
+        var commentsRoute = "{{ route('comments.json', ['postId' => $post->id]) }}";
     
         function fetchComments() {
             var xhr = new XMLHttpRequest();
@@ -314,9 +296,14 @@
                         <div class="desc-top">
                             <h6>${item.user_name}</h6>
                             <span class="date">${item.date}</span>
-                            <button onclick="children()" class="reply-link border-0 "><i class="lni lni-reply"> Reply</i></button>
-                        </div>
-                        <p>${item.commit}</p>
+                          
+                            ${item.User_id === {{ Auth::check() ? Auth::user()->id : 'false' }} ? `
+                            <button onclick="updateComment(${item.id})" class="reply-link border-0 mx-4"><i class="fa-regular fa-pen-to-square"></i></button>
+                            <button onclick="deleteComment(${item.id})" class="reply-link border-0"><i class="fa-solid fa-trash"></i></button>
+                        ` : ''}
+
+            </div>
+            <p>${item.commit}</p>
                     </div>
                 `;
     
@@ -325,34 +312,90 @@
         }
     
         fetchComments();
+
+        setInterval(function () {
+            fetchComments();
+        }, 60000); 
     </script>
 
-    <!-- Add this script at the end of your Blade view file -->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('commentForm').addEventListener('submit', function (event) {
             event.preventDefault();
 
             var commitText = document.getElementById('commitText').value;
+            var error = document.getElementById('error');
+
+            if (commitText !== '') {
+                
+           
 
             // Send an Ajax request
             axios.post("{{ route('add_comment', ['postId' => $post->id]) }}", {
                 commit: commitText,
+               
             })
             .then(function (response) {
-                // Handle success, you can update the UI or show a success message
                 console.log(response.data.message);
                 document.getElementById('commitText').value = '';
+                error.innerHTML = '';
+                // document.getElementById('commentForm').scrollIntoView({ behavior: 'smooth' });
+                var targetPosition = document.body.scrollHeight - 900;
+        window.scrollTo(0, targetPosition);
 
                 fetchComments();
             })
             .catch(function (error) {
-                // Handle errors, you can show an error message
                 console.error(error.response.data.message);
             });
+         }else{
+          
+            error.innerHTML = `<div class="alert alert-danger" role="alert">
+                                                        is empty       
+                                                            </div>`
+        
+         }
         });
+        
     });
 </script>
+<script>
+    // Assuming you have a function to delete comments
+    function deleteComment(commentId) {
+    axios.delete(`/delete-comment/${commentId}`)
+        .then(function (response) {
+            // Handle success, you can update the UI or show a success message
+            console.log(response.data.message);
+            // You may want to refresh the comments after deletion
+            fetchComments();
+        })
+        .catch(function (error) {
+            // Handle errors, you can show an error message
+            console.error('Error deleting comment:', error);
+        });
+}
+
+
+function updateComment(commentId) {
+    var newComment = prompt('Enter the new comment:'); // You might use a better UI for editing
+
+    axios.put(`/update-comment/${commentId}`, { new_comment: newComment })
+        .then(function (response) {
+            // Handle success, you can update the UI or show a success message
+            console.log(response.data.message);
+            // You may want to refresh the comments after updating
+            fetchComments();
+        })
+        .catch(function (error) {
+            // Handle errors, you can show an error message
+            console.error('Error updating comment:', error);
+        });
+}
+
+
+</script>
+
+
 
     
     @endsection

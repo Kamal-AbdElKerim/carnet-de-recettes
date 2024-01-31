@@ -93,7 +93,7 @@ class UserContoller extends Controller
 
         session()->flash('logout_success');
         
-        return redirect()->route('index'); 
+         return back(); 
     }
 
     /**

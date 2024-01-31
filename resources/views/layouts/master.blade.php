@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html class="no-js" lang="zxx">
+<html class="no-js" lang="zxx" >
 
 <head>
     <meta charset="utf-8" />
@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="{{URL::asset('assets/css/bootstrap.min.css')}}" />
     <link rel="stylesheet" href="{{URL::asset('assets/css/LineIcons.2.0.css')}}" />
     <link rel="stylesheet" href="{{URL::asset('assets/css/glightbox.min.css')}}" />
-    <link rel="stylesheet" href="{{URL::asset('assets/css/bootstrap.min.css')}}" />
+    {{-- <link rel="stylesheet" href="{{URL::asset('assets/css/bootstrap.min.css')}}" /> --}}
     <link rel="stylesheet" href="{{URL::asset('assets/css/main.css')}}" />
 
   
@@ -223,10 +223,10 @@
 
 
     
-          <!--Internal  Notify js -->
           <script src="{{URL::asset('Dashboard/plugins/jquery/jquery.min.js')}}"></script>
           <!-- Bootstrap Bundle js -->
             <script src="{{URL::asset('Dashboard/plugins/notify/js/notifIt.js')}}"></script>
+
             {{-- <script src="{{URL::asset('Dashboard/plugins/notify/js/notifit-custom.js')}}"></script> --}}
     @include('layouts.messages_alert')
      

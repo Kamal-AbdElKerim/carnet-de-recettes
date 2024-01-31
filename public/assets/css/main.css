@@ -3601,7 +3601,7 @@ blockquote span {
 @media (max-width: 767px) {
   .post-comments .comments-list li .comment-desc .desc-top .reply-link {
     position: relative;
-    display: block;
+    /* display: block; */
     margin-top: 15px;
   }
 }
@@ -3713,13 +3713,13 @@ blockquote span {
 
 /* News sidebar */
 .sidebar .widget {
-  padding: 40px;
+  padding: 20px;
   background-color: #fff;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
   border-radius: 8px;
   overflow: hidden;
-  -webkit-box-shadow: 0px 1px 20px 0px rgba(32, 32, 32, 0.11);
-          box-shadow: 0px 1px 20px 0px rgba(32, 32, 32, 0.11);
+  /* -webkit-box-shadow: 0px 1px 20px 0px rgba(32, 32, 32, 0.11);
+          box-shadow: 0px 1px 20px 0px rgba(32, 32, 32, 0.11); */
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px), (max-width: 767px) {
@@ -3785,16 +3785,21 @@ blockquote span {
   font-size: 13px;
   -webkit-transition: all 0.3s ease-out 0s;
   transition: all 0.3s ease-out 0s;
-  color: #fff;
+  /* color: #fff; */
   border-radius: 5px;
   padding: 0 !important;
   border: none;
-  background: #723FE4;
+  /* background: #723FE4; */
+  background-color: transparent;
+            border: none;
+            padding: 10px 20px; /* Adjust padding as needed */
+            cursor: pointer;
 }
 
+
 .sidebar .widget.search-widget form button:hover {
-  background-color: #081828;
-  color: #fff;
+  width: 44px;
+  height: 47px;
 }
 
 .sidebar .widget.popular-feeds .single-popular-feed {

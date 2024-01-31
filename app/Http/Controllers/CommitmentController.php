@@ -31,9 +31,9 @@ class CommitmentController extends Controller
     //        return view('data_commit',compact('Commitment')) ;        
     // }
 
-    public function getCommentsJson()
+    public function getCommentsJson($postId)
     {
-        $comments = Commitment::orderBy("id", "ASC")->get();
+        $comments = Commitment::where('posts_id', $postId)->orderBy("id", "ASC")->get();
     
         foreach ($comments as $comment) {
             $comment->user_name = $comment->user->name;
@@ -43,6 +43,41 @@ class CommitmentController extends Controller
         return response()->json(['comments' => $comments]);
     }
     
+    public function delete($commentId)
+    {
+        // Find the comment by ID
+        $comment = Commitment::find($commentId);
+
+        // Check if the comment exists
+        if (!$comment) {
+            return response()->json(['error' => 'Comment not found'], 404);
+        }
+
+        // Delete the comment
+        $comment->delete();
+
+        return response()->json(['message' => 'Comment deleted successfully']);
+    }
+
+    public function updateComment(Request $request, $commentId)
+{
+    // Validation if needed
+    $request->validate([
+        'new_comment' => 'required|string',
+    ]);
+
+    $comment = Commitment::find($commentId);
+    if (!$comment) {
+        return response()->json(['message' => 'Comment not found'], 404);
+    }
+
+    $comment->commit = $request->input('new_comment');
+    $comment->save();
+
+    return response()->json(['message' => 'Comment updated successfully']);
+}
+
+
 
     /**
      * Store a newly created resource in storage.
