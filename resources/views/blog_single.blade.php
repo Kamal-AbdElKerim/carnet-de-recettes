@@ -549,13 +549,14 @@ function updateComment(commentId) {
 
         
     $('#star-ratings').html(` <form id="commentForm_2">
+        @auth
         <ul class="meta-info mb-3">
                                         <li>
                                             <a href="javascript:void(0)"><img src={{URL::asset('assets/images/blog/comment1.jpg')}}
                                                     alt="#">{{  Auth::user()->name}}</a>
                                         </li>
      </ul>
-     
+     @endauth
         <input type="text" name="commit" placeholder="Your Comments" id="commitText" value="${$data.commit}">
     <button type="submit"><img src={{URL::asset('assets/images/send.png')}} alt=""></button>
 
