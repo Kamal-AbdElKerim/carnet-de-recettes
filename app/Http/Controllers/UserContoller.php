@@ -18,12 +18,14 @@ class UserContoller extends Controller
     public function index()
     {
         $categories = Categorie::all();
+      
        
         $posts = Post::orderBy("id", "desc")->paginate(2);
+        
 
         $Commitment = Commitment::all();
 
-        $Post = Post::withCount('Commitment')->get();
+    //       $Post = Post::withCount('Commitment')->get();
 
        
 

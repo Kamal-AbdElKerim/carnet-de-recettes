@@ -926,7 +926,10 @@ ol {
   padding-top: 180px;
   z-index: 2;
   text-align: left;
-  background-color: #723FE4;
+  /* background-color: #723FE4; */
+  background-image: url('recipebook.jpg');
+  background-size: cover; 
+  /* background-repeat: no-repeat; */
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -940,6 +943,9 @@ ol {
   .breadcrumbs {
     padding-bottom: 60px;
     padding-top: 120px;
+  }
+  .banner{
+    display: none;
   }
 }
 
@@ -3102,7 +3108,7 @@ ol {
 .blog-section .single-blog .blog-content .autor {
   position: relative;
   padding-left: 62px;
-  margin-top: 30px;
+  margin-top: 45px;
 }
 
 .blog-section .single-blog .blog-content .autor img {
@@ -3776,8 +3782,8 @@ blockquote span {
 .sidebar .widget.search-widget form button {
   border: none;
   position: absolute;
-  right: 7px;
-  top: 6px;
+  right: 1px;
+  top: 73px;
   width: 42px;
   height: 42px;
   z-index: 1;

@@ -167,9 +167,7 @@
                                 <li><a href="javascript:void(0)"><i class="lni lni-youtube"></i></a></li>
                                 <li><a href="javascript:void(0)"><i class="lni lni-pinterest"></i></a></li>
                             </ul>
-                            <p class="copyright-text">Designed and Developed by <a href="https://graygrids.com/"
-                                    rel="nofollow" target="_blank">GrayGrids</a>
-                            </p>
+                         
                         </div>
                         <!-- End Single Widget -->
                     </div>

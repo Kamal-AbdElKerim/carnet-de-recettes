@@ -11,7 +11,7 @@
         </div>
         <div class="blog-content">
             <h4>
-                <a href="{{ route('Single_post',$item->id) }}">{{ $item->title }}</a>
+                <a href="{{ route('Single_post',$item->id) }}" style="height: 50px">{{ Str::limit($item->title , 45) }}</a>
                 @if ($item->Commitment->count() != 0)
                 @if (round($item->Commitment->sum('start') / $item->Commitment->count()) == 1)
                 <br><a href="{{ route('Single_post',$item->id) }}">
@@ -87,7 +87,7 @@
             @endif      
                 
             </h4>
-            <p>{!! Str::limit($item->bio, 200, '<a href="' . route('Single_post', $item->id) . '">... [Read More]</a>') !!}</p>
+            <p  style="height: 120px">{!! Str::limit($item->bio, 200, '<a href="' . route('Single_post', $item->id) . '">... [Read More]</a>') !!}</p>
             <div class="autor">
                 <a href="javascript:void(0)"><img src="assets/images/blog/comment2.jpg"
                         alt="#"></a>

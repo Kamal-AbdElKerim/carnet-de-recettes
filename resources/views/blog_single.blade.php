@@ -11,11 +11,11 @@
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 col-md-12 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Blog Single Sidebar</h1>
+                        <h1 class="page-title">Recettes</h1>
                     </div>
                     <ul class="breadcrumb-nav">
                         <li><a href="index.html">Home</a></li>
-                        <li>Blog Single Sidebar</li>
+                        <li>Single Recettes</li>
                     </ul>
                 </div>
             </div>
@@ -156,6 +156,7 @@
                                             <!-- Start Single Widget -->
                                             <div class="widget search-widget">
                                                 <form id="commentForm">
+                                                   
            
                                                     <div id="star-ratings-container">
 
@@ -478,6 +479,7 @@ function remove() {
             .then(function (response) {
                 console.log(response.data.message);
                 document.getElementById('commitText').value = '';
+
                 document.getElementById('num').value = '0';
                 error.innerHTML = '';
               
@@ -523,6 +525,7 @@ function remove() {
         .then(function (response) {
             // Handle success, you can update the UI or show a success message
             console.log(response.data.message);
+
             // You may want to refresh the comments after deletion
             fetchComments();
             loadStarRatings();
@@ -546,8 +549,16 @@ function updateComment(commentId) {
 
         
     $('#star-ratings').html(` <form id="commentForm_2">
+        <ul class="meta-info mb-3">
+                                        <li>
+                                            <a href="javascript:void(0)"><img src={{URL::asset('assets/images/blog/comment1.jpg')}}
+                                                    alt="#">{{  Auth::user()->name}}</a>
+                                        </li>
+     </ul>
+     
         <input type="text" name="commit" placeholder="Your Comments" id="commitText" value="${$data.commit}">
     <button type="submit"><img src={{URL::asset('assets/images/send.png')}} alt=""></button>
+
     <div id="error">
 
     </div>

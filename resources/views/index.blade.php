@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 col-md-12 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Blog Grid Sidebar</h1>
+                        <h1 class="page-title">Carnet de Recettes</h1>
                     </div>
                     <ul class="breadcrumb-nav">
                         <li><a href="index.html">Home</a></li>
@@ -31,7 +31,22 @@
  
         <div class="container">
             <div class="row">
-            <div class="col-lg-8 col-md-12 col-12">
+                <aside class="col-lg-3 col-md-12 col-12">
+                    <div class="sidebar blog-grid-page">
+                       
+                       
+                        <!-- Start Single Widget -->
+                        <div class="single-widget banner">
+                            <a href="javascript:void(0)">
+                                <img src="assets/images/banner.jpg" alt="#" height="520px">
+                            </a>
+                        </div>
+                        <!-- End Single Widget -->
+                      
+                     
+                    </div>
+                </aside>
+            <div class="col-lg-9 col-md-12 col-12">
             <div class="single-blog">
                 @auth
                 <form action="{{ route('add_post') }}" method="POST" enctype="multipart/form-data">
@@ -83,26 +98,47 @@
             </div>
         </div>
 
-                <aside class="col-lg-4 col-md-12 col-12">
+           
+       
+        </div>
+            <!-- End Single Widget -->
+            <div class="row">
+                          
+                <aside class="col-lg-3 col-md-12 col-12">
                     <div class="sidebar blog-grid-page">
-                       
+                        <!-- Start Single Widget -->
+                        <div class="widget search-widget">
+                            <h6 class="widget-title">Search This Site</h6>
+                            <form action="#">
+                                <input type="text" placeholder="Search Here..." id="SearchByTiltle">
+                                <button type="submit"><i class="lni lni-search-alt"></i></button>
+                            </form>
+                        </div>
+                        <!-- End Single Widget -->
                        
                         <!-- Start Single Widget -->
-                        <div class="single-widget banner">
-                            <a href="javascript:void(0)">
-                                <img src="assets/images/banner.jpg" alt="#" height="520px">
-                            </a>
+                        <div class="widget categories-widget">
+                            <h6 class="widget-title">Categories</h6>
+                            <ul class="custom">
+                                <li>
+                                    <a href="javascript:void(0)" onclick="searchByTitle('')">All</a>
+                                  
+                                </li>
+                               @foreach ($categories as $item)
+                               <li>
+                                <a href="javascript:void(0)" onclick="searchByTitle('{{ $item->title }}')">{{ $item->title }}</a>
+                              
+                            </li>
+                               @endforeach
+           
+                            </ul>
                         </div>
                         <!-- End Single Widget -->
                       
                      
                     </div>
                 </aside>
-       
-        </div>
-            <!-- End Single Widget -->
-            <div class="row">
-                <div class="col-lg-8 col-md-12 col-12">
+                <div class="col-lg-9 col-md-12 col-12">
                     
                     <div class="row">
                       
@@ -261,45 +297,7 @@
                     </div> --}}
                     <!--/ End Pagination -->
                 </div>
-                
-                <aside class="col-lg-4 col-md-12 col-12">
-                    <div class="sidebar blog-grid-page">
-                        <!-- Start Single Widget -->
-                        <div class="widget search-widget">
-                            <h6 class="widget-title">Search This Site</h6>
-                            <form action="#">
-                                <input type="text" placeholder="Search Here..." id="SearchByTiltle">
-                                <button type="submit"><i class="lni lni-search-alt"></i></button>
-                            </form>
-                        </div>
-                        <!-- End Single Widget -->
-                       
-                        <!-- Start Single Widget -->
-                        <div class="widget categories-widget">
-                            <h6 class="widget-title">Categories</h6>
-                            <ul class="custom">
-                                <li>
-                                    <a href="javascript:void(0)">Web Design</a>
-                                </li>
-                                <li>
-                                    <a  href="javascript:void(0)">Branding</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Graphic Design</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Marketing</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)">Wireframing</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- End Single Widget -->
-                      
-                     
-                    </div>
-                </aside>
+      
             </div>
         </div>
       
@@ -351,6 +349,20 @@
             });
         }
     });
+
+    function searchByTitle(value) {
+            $.ajax({
+                url: "{{ route('Ajax_Search') }}",
+                type: 'post',
+                dataType: 'html',
+                cache: false,
+                data: { SearchByTiltle: value, "_token": "{{ csrf_token() }}" },
+                success: function(data) {
+                    $("#ajax_posts").html(data);
+                },
+                error: function() {}
+            });
+        }
 </script>
 @endsection
 

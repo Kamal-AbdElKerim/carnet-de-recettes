@@ -85,9 +85,15 @@ class PostController extends Controller
             $posts = Post::where("category_id", "=", $category->id)->orderBy("id", "desc")->paginate(2);
         }
 
+        if (empty($searchByTitle)) {
+            $posts = Post::orderBy("id", "desc")->paginate(2);
+
+        }
+
         return view('SearchAjax', compact('posts'));
     }
 }
+
 
 
     /**

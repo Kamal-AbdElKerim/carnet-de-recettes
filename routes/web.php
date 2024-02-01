@@ -43,6 +43,7 @@ Route::get('/Single_post/{id}', [PostController::class , "show"])->name('Single_
 
 
 Route::post('/AjaxSearch', [PostController::class , "AjaxSearch"])->name('Ajax_Search');
+Route::get('/AjaxSearch/{title}', [PostController::class , "AjaxSearch_categoary"])->name('Ajax_Search_catgory');
 
 
 Route::post('/add-comment/{postId}', [CommitmentController::class , "addComment"])->middleware('auth')->name('add_comment');
