@@ -48,9 +48,11 @@ Route::post('/AjaxSearch', [PostController::class , "AjaxSearch"])->name('Ajax_S
 Route::post('/add-comment/{postId}', [CommitmentController::class , "addComment"])->middleware('auth')->name('add_comment');
 Route::delete('/delete-comment/{commentId}', [CommitmentController::class , "delete"])->middleware('auth')->name('delete.comment');
 Route::put('/update-comment/{commentId}', [CommitmentController::class , "updateComment"])->middleware('auth')->name('update.comment');
+Route::get('/info-comment/{commentId}', [CommitmentController::class , "info_comment"])->middleware('auth')->name('info-comment');
 
 
 Route::get('/comments/json/{postId}', [CommitmentController::class , "getCommentsJson"])->name('comments.json');
 // Route::get('/data.commit', [CommitmentController::class , "data_commit"])->name('data.commit');
 
 
+Route::get('/show-star-ratings/{id}', [CommitmentController::class, 'showStarRatings'])->name('show-star-ratings');

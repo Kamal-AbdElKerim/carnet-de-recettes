@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Commitment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
+
 use Illuminate\Support\Facades\Auth;
 
 class CommitmentController extends Controller
@@ -42,6 +44,24 @@ class CommitmentController extends Controller
     
         return response()->json(['comments' => $comments]);
     }
+
+    public function showStarRatings($id)
+    {
+        // Load the star ratings view
+        $starRatingsView = View::make('star_ratings')->render();
+
+        $post = Post::findOrFail($id);
+        $Commitment = Commitment::where('User_id', Auth::id())->where('posts_id', $post->id)->where('start','!=', 0)->get();
+
+        if (count($Commitment) == 0) {
+            return response()->json(['html' => $starRatingsView]);
+        }else{
+            return response()->json(['html' => 1]);
+
+        }
+
+       
+    }
     
     public function delete($commentId)
     {
@@ -64,6 +84,7 @@ class CommitmentController extends Controller
     // Validation if needed
     $request->validate([
         'new_comment' => 'required|string',
+        'num1' => 'required',
     ]);
 
     $comment = Commitment::find($commentId);
@@ -72,10 +93,25 @@ class CommitmentController extends Controller
     }
 
     $comment->commit = $request->input('new_comment');
+    $comment->start = $request->input('num1');
     $comment->save();
 
     return response()->json(['message' => 'Comment updated successfully']);
 }
+
+public function info_comment($commentId)
+{
+    $commitment = Commitment::find($commentId);
+
+    if (!$commitment) {
+        return response()->json(['error' => 'Comment not found']);
+    }
+
+   
+
+    return response()->json(['commitment' => $commitment]);
+}
+
 
 
 
@@ -97,6 +133,7 @@ class CommitmentController extends Controller
         $commitment = new Commitment();
         $commitment->commit = $validatedData['commit']; 
         $commitment->start = $validatedData['num']; 
+        $commitment->has_reviewed = 1; 
 
         $commitment->User_id = Auth::id();
         $commitment->posts_id = $id; 

@@ -13,6 +13,7 @@ class Commitment extends Model
         'commit',
         'posts_id',
         'User_id',
+        'has_reviewed',
        
     ];
 

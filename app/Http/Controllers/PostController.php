@@ -66,8 +66,10 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
+        $Commitment = Commitment::where('User_id', Auth::id())->where('posts_id', $post->id)->get();
+        // dd($Commitment);
        
-        return view('blog_single',compact('post')) ;
+        return view('blog_single',compact('post','Commitment')) ;
     }
 
     public function AjaxSearch(Request $request)

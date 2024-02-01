@@ -156,33 +156,19 @@
                                             <!-- Start Single Widget -->
                                             <div class="widget search-widget">
                                                 <form id="commentForm">
-                                                    <input type="text" name="commit" placeholder="Your Comments" id="commitText">
-                                                    <button type="submit"><img src={{URL::asset('assets/images/send.png')}} alt=""></button>
-                                                    <div id="error">
+           
+                                                    <div id="star-ratings-container">
 
                                                     </div>
-                                                    <div class="" id="f_star">
-                                                        <span onclick="gfg(1)"
-                                                              class="star">★
-                                                        </span>
-                                                        <span onclick="gfg(2)"
-                                                              class="star">★
-                                                        </span>
-                                                        <span onclick="gfg(3)"
-                                                              class="star">★
-                                                        </span>
-                                                        <span onclick="gfg(4)"
-                                                              class="star">★
-                                                        </span>
-                                                        <span onclick="gfg(5)"
-                                                              class="star">★
-                                                        </span>
-                                                        <h3 id="output">
-                                                            <input type="text" id="num"  value="" style="display: none">
-                                                          </h3>
-                                                    </div>
+
+                                                    <h3 id="output">
+                                                        <input type="text" id="num" value="0" style="display: none">
+                                                    </h3>
 
                                                 </form>
+                                                <div id="star-ratings">
+
+                                                </div>
                                             </div>
                                             </div>
                                             <!-- End Single Widget -->
@@ -273,7 +259,37 @@
     @endsection
 
     @section('script')
+    <script>
+      
+           
 
+      loadStarRatings();
+       
+       
+      
+    
+            // Function to load star ratings asynchronously
+            function loadStarRatings() {
+                $.ajax({
+                    type: 'GET',
+                    url: '{{ route("show-star-ratings", $post->id) }}',
+                    success: function(response) {
+                        // Append the loaded HTML to the container
+                        if (response.html == 1) {
+                            $('#star-ratings-container').html('');
+
+                        }else{
+                            $('#star-ratings-container').html(response.html);
+
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error loading star ratings:', error);
+                    }
+                });
+            }
+    
+    </script>
     <script>
         
 // script.js
@@ -444,14 +460,16 @@ function remove() {
 
             var commitText = document.getElementById('commitText').value;
             var num = document.getElementById('num').value;
+            // console.log(num)
+          
             var starElements = document.querySelectorAll('#f_star .star');
             var error = document.getElementById('error');
 
-            if (commitText !== '' && num !== '') {
+            if (commitText !== '' && num != 0) {
                 
            
 
-            // Send an Ajax request
+            // Send an Ajax request                                             
             axios.post("{{ route('add_comment', ['postId' => $post->id]) }}", {
                 commit: commitText,
                 num: num,
@@ -460,23 +478,32 @@ function remove() {
             .then(function (response) {
                 console.log(response.data.message);
                 document.getElementById('commitText').value = '';
+                document.getElementById('num').value = '0';
                 error.innerHTML = '';
+              
                 starElements.forEach(function(span) {
                     // Remove all existing classes
                     span.className = '';
+                
 
                     // Add the new class (e.g., 'newClass')
                     span.classList.add('star');
                 });
                 // document.getElementById('commentForm').scrollIntoView({ behavior: 'smooth' });
                 var targetPosition = document.body.scrollHeight - 900;
-        window.scrollTo(0, targetPosition);
-
+                 window.scrollTo(0, targetPosition);
+                 num.value = '';
+                //  loadStarRatings();
+                loadStarRatings();
                 fetchComments();
+     
+ 
+               
             })
             .catch(function (error) {
                 console.error(error.response.data.message);
             });
+            
          }else{
           
             error.innerHTML = `<div class="alert alert-danger" role="alert">
@@ -489,6 +516,7 @@ function remove() {
     });
 </script>
 <script>
+    
     // Assuming you have a function to delete comments
     function deleteComment(commentId) {
     axios.delete(`/delete-comment/${commentId}`)
@@ -497,6 +525,7 @@ function remove() {
             console.log(response.data.message);
             // You may want to refresh the comments after deletion
             fetchComments();
+            loadStarRatings();
         })
         .catch(function (error) {
             // Handle errors, you can show an error message
@@ -506,12 +535,50 @@ function remove() {
 
 
 function updateComment(commentId) {
-    var newComment = prompt('Enter the new comment:'); // You might use a better UI for editing
+    // var newComment = prompt("Enter the new comment:");
+    // var newRating = prompt("Enter the new rating:");
+    axios.get(`/info-comment/${commentId}`)
+    .then(function (response) {
+        // Handle success
+        console.log('Comment updated successfully:', response.data.commitment);
+        $data = response.data.commitment ;
+        
 
-    axios.put(`/update-comment/${commentId}`, { new_comment: newComment })
+        
+    $('#star-ratings').html(` <form id="commentForm_2">
+        <input type="text" name="commit" placeholder="Your Comments" id="commitText" value="${$data.commit}">
+    <button type="submit"><img src={{URL::asset('assets/images/send.png')}} alt=""></button>
+    <div id="error">
+
+    </div>
+    
+    <div class="" id="f_star">
+        <span onclick="gfg(1)" class="star">★</span>
+        <span onclick="gfg(2)" class="star">★</span>
+        <span onclick="gfg(3)" class="star">★</span>
+        <span onclick="gfg(4)" class="star">★</span>
+        <span onclick="gfg(5)" class="star">★</span>
+    
+    </div> 
+    </form>
+    `);
+
+    document.getElementById('commentForm_2').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var newComment = document.getElementById('commitText').value;
+            var newRating = document.getElementById('num').value;
+            // console.log(num)
+          
+            var starElements = document.querySelectorAll('#f_star .star');
+            var error = document.getElementById('error');
+            if (newComment !== '' && newRating != 0) {
+
+    axios.put(`/update-comment/${commentId}`, { new_comment: newComment, num1: newRating })
         .then(function (response) {
             // Handle success, you can update the UI or show a success message
             console.log(response.data.message);
+            document.getElementById('commentForm_2').style.display = 'none';
             // You may want to refresh the comments after updating
             fetchComments();
         })
@@ -519,6 +586,25 @@ function updateComment(commentId) {
             // Handle errors, you can show an error message
             console.error('Error updating comment:', error);
         });
+    }else{
+          
+          error.innerHTML = `<div class="alert alert-danger" role="alert">
+                                                      is empty       
+                                                          </div>`
+      
+       }
+    } )
+    })
+    .catch(function (error) {
+        // Handle errors
+        console.error('Error updating comment:', error);
+
+        // Show user-friendly error message or take other actions
+        // For example, display a notification to the user
+    });
+
+
+   
 }
 
 

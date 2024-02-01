@@ -25,6 +25,8 @@ class UserContoller extends Controller
 
         $Post = Post::withCount('Commitment')->get();
 
+       
+
         return view('index',compact('categories','posts')) ;
 
     }
